@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import './home.dart';
 import '../widget/fake_search.dart';
 import '.././categories/category_men.dart';
+import '.././categories/category_women.dart';
+import '.././categories/category_shoes.dart';
+import '.././categories/category_access.dart';
+import '.././categories/category_electro.dart';
+import '.././categories/category_kids.dart';
+import '.././categories/category_home.dart';
+import '.././categories/category_beauty.dart';
+
+
+
+
+
+
 
 List<ItemData> items = [
   ItemData(label: 'men'),
@@ -108,13 +121,13 @@ class _CategoryState extends State<Category> {
                 scrollDirection: Axis.vertical,
                 children: [
                   Category_men(),
-                Center(child: Text("women category"),),
-                Center(child: Text("electro category"),),
-                Center(child: Text("accesso category"),),
-                Center(child: Text("shoes category"),),
-                Center(child: Text("home category"),),
-                Center(child: Text("kids category"),),
-                Center(child: Text("beauty category"),),
+                  Category_women(),
+                  Category_electro(),
+                  Category_access(),
+                  Category_shoes(),
+                  Category_home(),
+                  Category_kids(),
+                  Category_beauty()
               ],),
             ))
       ],),

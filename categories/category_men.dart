@@ -27,6 +27,7 @@ class Category_men extends StatelessWidget {
             child: Column(
               crossAxisAlignment:  CrossAxisAlignment.start,
               children: [
+
                 Text(
                   "Men",
                   style: TextStyle(
