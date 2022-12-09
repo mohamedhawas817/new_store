@@ -4,6 +4,8 @@ import './screens/home.dart';
 import './screens/profile.dart';
 import './screens/shop.dart';
 import './screens/shop_cart.dart';
+import './screens/stores.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +23,7 @@ class MyApp extends StatelessWidget {
         "category": (context) => Category(),
         "shopping_cart": (context) => Shopping_cart(),
         "profile": (context) => Profile(),
-        "shop": (context) => Shop(),
+        "Store": (context) => Store(),
 
 
       },
@@ -45,7 +47,7 @@ class _HomePageState extends State<HomePage> {
   List<Map> _pages = [
   {'page': Homy(), 'title': "home"},
   {'page': Category(), 'title': "Category"},
-  {'page': Shop(), 'title': "shop"},
+  {'page': Store(), 'title': "Store"},
   {'page': Shopping_cart(), 'title': "shopping_cart"},
   {'page': Profile(), 'title': "profile"},
   ];
