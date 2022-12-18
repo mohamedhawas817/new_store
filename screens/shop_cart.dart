@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import '../main.dart';
 import './customar_home.dart';
+import '../widget/yallow_button.dart';
 
 class Shopping_cart extends StatelessWidget {
   const Shopping_cart({Key? key}) : super(key: key);
@@ -37,19 +38,7 @@ class Shopping_cart extends StatelessWidget {
         children: [
           Text('Total \$', style: TextStyle(fontSize: 18),),
           Text('00.00', style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold, color:Colors.red),),
-          Container(
-            height: 35,
-            width: MediaQuery.of(context).size.width *0.45,
-            decoration: BoxDecoration(
-                color:Colors.yellow,
-              borderRadius: BorderRadius.circular(25),
-
-            ),
-            child: MaterialButton(
-              onPressed: (){},
-              child: Text("Check Out"),
-            ),
-          )
+          YollowButton(0.45, 'Checkout', (){})
 
         ],
       ),
@@ -57,3 +46,5 @@ class Shopping_cart extends StatelessWidget {
     );
   }
 }
+
+
