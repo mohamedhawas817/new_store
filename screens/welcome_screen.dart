@@ -1,5 +1,22 @@
+import 'dart:math';
+import 'package:animated_text_kit/animated_text_kit.dart';
+
+
 import 'package:flutter/material.dart';
 import '../widget/yallow_button.dart';
+
+
+final mycolors = [
+  Colors.yellowAccent,
+  Colors.red,
+  Colors.blueAccent,
+  Colors.green,
+  Colors.purple,
+  Colors.teal
+];
+
+
+
 
 class WelcomeSCreen extends StatefulWidget {
   const WelcomeSCreen({Key? key}) : super(key: key);
@@ -8,7 +25,38 @@ class WelcomeSCreen extends StatefulWidget {
   State<WelcomeSCreen> createState() => _WelcomeSCreenState();
 }
 
-class _WelcomeSCreenState extends State<WelcomeSCreen> {
+class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProviderStateMixin  {
+
+
+  late AnimationController animated_controller;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    animated_controller = AnimationController(vsync: this, duration: const Duration( seconds: 2));
+    animated_controller.repeat();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    animated_controller.dispose();
+    super.dispose();
+  }
+
+  final colorizeColors = [
+    Colors.purple,
+    Colors.blue,
+    Colors.yellow,
+    Colors.red,
+  ];
+
+  final colorizeTextStyle = TextStyle(
+    fontSize: 50.0,
+    fontFamily: 'Horizon',
+  );
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,12 +70,68 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> {
           constraints: BoxConstraints.expand(),
           child: SafeArea(
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                    "Welcome",
-                  style: TextStyle(
-                    color: Colors.white, fontSize: 30
-                  ),
+
+                
+
+            //   SizedBox(
+            //   width: 250.0,
+            //   child: DefaultTextStyle(
+            //     style: const TextStyle(
+            //       fontSize: 30.0,
+            //       fontFamily: 'Bobbers',
+            //     ),
+            //     child: AnimatedTextKit(
+            //       animatedTexts: [
+            //         TyperAnimatedText('Welcome', speed: Duration(milliseconds: 200)),
+            //
+            //       ],
+            //       onTap: () {
+            //         print("Tap Event");
+            //       },
+            //     ),
+            //   ),
+            // ),
+
+
+
+                AnimatedTextKit(
+
+                  animatedTexts: [
+                    ColorizeAnimatedText(
+                        "Welcome", textStyle: TextStyle(
+                        fontSize: 45,
+                      fontWeight: FontWeight.bold,
+                      fontFamily:  'Acme'),
+                        colors: mycolors
+                    ),
+                    ColorizeAnimatedText(
+                        "To", textStyle: TextStyle(
+                        fontSize: 45,
+                        fontWeight: FontWeight.bold,
+                        fontFamily:  'Acme'),
+                        colors: mycolors
+                    ),
+
+                    ColorizeAnimatedText(
+                        "My Store", textStyle: TextStyle(
+                        fontSize: 45,
+                        fontWeight: FontWeight.bold,
+                        fontFamily:  'Acme'),
+                        colors: [
+                          Colors.yellowAccent,
+                          Colors.red,
+                          Colors.blueAccent,
+                          Colors.green,
+                          Colors.purple,
+                          Colors.teal
+                        ]
+                    )
+                  ],
+                  isRepeatingAnimation: true,
+                  repeatForever: true,
+
 
                 ),
                 SizedBox(
@@ -35,44 +139,71 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> {
                   width: 200,
                   child: Image(image: AssetImage('assets/images/logo.jpg'),),
                 ),
-                Text("SHOP", style: TextStyle(color: Colors.white, fontSize: 30),),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Colors.white38,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      bottomLeft: Radius.circular(50)
-                    )
-                  ),
-                  child: Padding(
-                    padding: EdgeInsets.all(12),
-                    child: Text("Suppliers only", style: TextStyle(color: Colors.yellowAccent, fontSize: 30, fontWeight: FontWeight.w600),),
+        SizedBox(
+          width: 250.0,
+          child: DefaultTextStyle(
+            style: const TextStyle(
+              fontSize: 40.0,
+              fontFamily: 'Canterbury',
+              color: Colors.lightBlueAccent
+            ),
+            child: AnimatedTextKit(
+
+              animatedTexts: [
+                ScaleAnimatedText('Buy'),
+                ScaleAnimatedText('Shop'),
+                ScaleAnimatedText('My Store'),
+              ],
+              onTap: () {
+                print("Tap Event");
+              },
+            ),
+          ),
+        ),
+               Column(
+                 crossAxisAlignment: CrossAxisAlignment.end,
+                 children: [
+                   Container(
+                     decoration: BoxDecoration(
+                         color: Colors.white38,
+                         borderRadius: BorderRadius.only(
+                             topLeft: Radius.circular(50),
+                             bottomLeft: Radius.circular(50)
+                         )
+                     ),
+                     child: Padding(
+                       padding: EdgeInsets.all(12),
+                       child: Text("Suppliers only", style: TextStyle(color: Colors.yellowAccent, fontSize: 30, fontWeight: FontWeight.w600),),
 
 
-                  ),
-                ),
-                SizedBox(height: 6,),
-                Container(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width * 0.9,
-                  decoration: BoxDecoration(
-                    color: Colors.white38,
-                    borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular(50),
-                      bottomLeft: Radius.circular(50)
-                    ),
+                     ),
+                   ),
+                   SizedBox(height: 6,),
+                   Container(
+                     height: 60,
+                     width: MediaQuery.of(context).size.width * 0.9,
+                     decoration: BoxDecoration(
+                       color: Colors.white38,
+                       borderRadius: BorderRadius.only(
+                           topLeft: Radius.circular(50),
+                           bottomLeft: Radius.circular(50)
+                       ),
 
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: [
-                      Image(image: AssetImage('assets/images/logo.jpg'),),
-                      YollowButton(0.25, 'Log In', (){}),
-                      YollowButton(0.35, 'Sign Up', (){}),
-                    ],
-                  ),
-                ),
+                     ),
+                     child: Row(
+                       mainAxisAlignment: MainAxisAlignment.spaceAround,
+                       children: [
+                         animatedimage(animated_controller: animated_controller),
+                         YollowButton(0.25, 'Log In', (){
+                           Navigator.pushReplacementNamed(context, "supplierhome");
+                         }),
+                         YollowButton(0.35, 'Sign Up', (){}),
+                       ],
+                     ),
+                   ),
 
+                 ],
+               ),
 
                 Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -91,9 +222,11 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
 
-                        YollowButton(0.25, 'Log In', (){}),
+                        YollowButton(0.25, 'Log In', (){
+                          Navigator.pushReplacementNamed(context, "profile");
+                        }),
                         YollowButton(0.35, 'Sign Up', (){}),
-                        Image(image: AssetImage('assets/images/logo.jpg'),),
+                        animatedimage(animated_controller: animated_controller),
                       ],
                     ),
                   ),
@@ -104,8 +237,19 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> {
                     color: Colors.white38
                   ),
                   child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      googlefacebook()
+                      googlefacebook("Google", (){}, Image(
+                        image: AssetImage('assets/images/google.jpg'),
+                      ), ),
+
+                      googlefacebook("Facebook", (){}, Image(
+                        image: AssetImage('assets/images/facebook.jpg'),
+                      ), ),
+
+                      googlefacebook("Mail", (){}, Icon(Icons.person
+                      ), )
+
                     ],
                   ),
                 )
@@ -121,28 +265,50 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> {
   }
 }
 
-class googlefacebook extends StatelessWidget {
-  const googlefacebook({
+class animatedimage extends StatelessWidget {
+  const animatedimage({
     Key? key,
+    required this.animated_controller,
   }) : super(key: key);
+
+  final AnimationController animated_controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return AnimatedBuilder(
+      animation: animated_controller.view,
+        builder: (context, child){
+        return Transform.rotate(angle: animated_controller.value* 2 * pi, child: child,);
+        },
+        child: Image(image: AssetImage('assets/images/logo.jpg'),
+        ));
+  }
+}
+
+class googlefacebook extends StatelessWidget {
+
+
+  late String label;
+  late Function() press;
+  late Widget child;
+
+  googlefacebook(this.label, this.press, this.child);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.symmetric(vertical: 8),
       child: InkWell(
-        onTap: (){},
+        onTap: press,
         child: Column(
           children: [
             SizedBox(
               height: 50,
               width: 50,
-              child: Image(
-                image: AssetImage('assets/images/google.jpg'),
-              ),
+              child: child
             ),
             Text(
-              "Google",
+             label,
               style: TextStyle(color: Colors.white),
             )
           ],
