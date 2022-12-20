@@ -27,9 +27,14 @@ class textformfield extends StatefulWidget {
 
   late String label_name;
   late String hint_name;
+  late String name;
   bool is_password;
+  final Function takethatvalue;
 
-  textformfield(this.label_name, this.hint_name, this.is_password);
+
+
+
+  textformfield(this.name, this.label_name, this.hint_name, this.is_password, this.takethatvalue);
 
   @override
   State<textformfield> createState() => _textformfieldState();
@@ -54,12 +59,17 @@ class _textformfieldState extends State<textformfield> {
     return TextFormField(
 
       validator: (value){
-        if (value==null || value.isEmpty) {
+
+        var email = widget.name == 'email' ? widget.name: '';
+        bool emailValid = RegExp(r'^.+@[a-zA-Z]+\.{1}[a-zA-Z]+(\.{0,1}[a-zA-Z]+)$').hasMatch(email);
+
+        if (value==null || value.isEmpty  ) {
           return 'Dont leave it empty';
         }
 
-
       },
+
+      onSaved: (value)=>widget.takethatvalue(value),
 
 
     onTap: widget.is_password ?  ()=> setState(() {
