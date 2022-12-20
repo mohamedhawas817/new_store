@@ -10,6 +10,8 @@ import './screens/supplier_home.dart';
 import './screens/welcome_screen.dart';
 import './screens/dashboard.dart';
 import './screens/supplier_home.dart';
+import './screens/customar_home.dart';
+import './screens/signup.dart';
 
 void main() {
   runApp(const MyApp());
@@ -29,11 +31,12 @@ class MyApp extends StatelessWidget {
         "profile": (context) => Profile(),
         "Store": (context) => Store(),
         "dashboard": (context) => Dashboard(),
-        "supplierhome": (context) => SupplierHome()
+        "supplierhome": (context) => SupplierHome(),
+        "customarhome": (context) => HomePage()
 
 
       },
-      home: WelcomeSCreen(),
+      home: Signup(),
     );
   }
 }

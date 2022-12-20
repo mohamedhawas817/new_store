@@ -223,7 +223,7 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProvider
                       children: [
 
                         YollowButton(0.25, 'Log In', (){
-                          Navigator.pushReplacementNamed(context, "profile");
+                          Navigator.pushReplacementNamed(context, "customarhome");
                         }),
                         YollowButton(0.35, 'Sign Up', (){}),
                         animatedimage(animated_controller: animated_controller),

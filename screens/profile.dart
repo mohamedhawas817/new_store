@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import '../widget/profileheader.dart';
+import '../customar_screen/wishlist.dart';
+import '../customar_screen/customar_order.dart';
+import './shop_cart.dart';
 
 class Profile extends StatefulWidget {
   const Profile({Key? key}) : super(key: key);
@@ -83,7 +86,8 @@ class _ProfileState extends State<Profile> {
                             width: MediaQuery.of(context).size.width * 0.2,
                             child: Center(child: Text('Cart', style: TextStyle(color: Colors.yellow, fontSize: 24),)),
                           ),
-                          onPressed: (){},
+                          onPressed: ()=>Navigator.push(context, MaterialPageRoute(builder: (context)=> Shopping_cart() )),
+
                         ),
                       ),
 
@@ -95,12 +99,13 @@ class _ProfileState extends State<Profile> {
                             )
                         ),
                         child: TextButton(
+
                           child: SizedBox(
                             height: 40,
                             width: MediaQuery.of(context).size.width * 0.2,
                             child: Center(child: Text('Orders', style: TextStyle(color: Colors.black, fontSize: 24),)),
                           ),
-                          onPressed: (){},
+                          onPressed:()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Customar_order() )),
                         ),
                       ),
 
@@ -118,7 +123,7 @@ class _ProfileState extends State<Profile> {
                             width: MediaQuery.of(context).size.width * 0.2,
                             child: Center(child: Text('WishList', style: TextStyle(color: Colors.yellow, fontSize: 24),)),
                           ),
-                          onPressed: (){},
+                          onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Wishlist() )),
                         ),
                       ),
 
