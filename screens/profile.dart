@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../widget/profileheader.dart';
 import '../customar_screen/wishlist.dart';
@@ -17,6 +18,7 @@ class _ProfileState extends State<Profile> {
     return Scaffold(
       backgroundColor: Colors.grey.shade300,
       body: CustomScrollView(
+
         slivers: [
           SliverAppBar(
             centerTitle: true,
@@ -147,11 +149,11 @@ class _ProfileState extends State<Profile> {
                   ),
                   child: Column(
                     children: [
-                      listtile('Email Address ', 'examle@mail.com', Icon(Icons.email)),
+                      listtile('Email Address ', 'examle@mail.com', Icon(Icons.email), (){}),
                       devide(),
-                      listtile("Phone No", "+111111", Icon(Icons.call)),
+                      listtile("Phone No", "+111111", Icon(Icons.call), (){}),
                       devide(),
-                      listtile("Address", "140 street - New Jerssy", Icon(Icons.home)),
+                      listtile("Address", "140 street - New Jerssy", Icon(Icons.home), (){}),
 
                     ],
                   ),
@@ -169,11 +171,14 @@ class _ProfileState extends State<Profile> {
                   ),
                   child: Column(
                     children: [
-                      listtile('Edit profile ', '', Icon(Icons.edit)),
+                      listtile('Edit profile ', '', Icon(Icons.edit), (){}),
                       devide(),
-                      listtile("Change Password", "", Icon(Icons.lock)),
+                      listtile("Change Password", "", Icon(Icons.lock),(){}),
                       devide(),
-                      listtile("Log out", '' ,Icon(Icons.logout)),
+                      listtile("Log out", '' ,Icon(Icons.logout), () async {
+                        await FirebaseAuth.instance.signOut();
+                        Navigator.pushReplacementNamed(context, 'welcome_screen');
+                      }),
 
                     ],
                   ),

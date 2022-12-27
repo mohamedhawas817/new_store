@@ -53,12 +53,13 @@ class listtile extends StatelessWidget {
   String mainone = '';
   String submain = '';
   late Icon icon;
+  final Function() press;
 
-  listtile(this.mainone, this.submain, this.icon);
+  listtile(this.mainone, this.submain, this.icon, this.press);
   @override
   Widget build(BuildContext context) {
     return ListTile(
-
+      onTap: press,
       title: Text(mainone),
       subtitle: Text(submain),
       leading: icon,
@@ -82,11 +83,11 @@ class listofpaddin extends StatelessWidget {
         ),
         child: Column(
           children: [
-            listtile('Email Address ', 'examle@mail.com', Icon(Icons.email)),
+            listtile('Email Address ', 'examle@mail.com', Icon(Icons.email) , (){}),
             devide(),
-            listtile("Phone No", "+111111", Icon(Icons.call)),
+            listtile("Phone No", "+111111", Icon(Icons.call), (){}),
             devide(),
-            listtile("Address", "140 street - New Jerssy", Icon(Icons.home)),
+            listtile("Address", "140 street - New Jerssy", Icon(Icons.home), (){}),
 
           ],
         ),

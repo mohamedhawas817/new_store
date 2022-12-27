@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 
 import 'package:flutter/material.dart';
@@ -29,6 +31,8 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProvider
 
 
   late AnimationController animated_controller;
+
+  bool processing = false;
 
   @override
   void initState() {
@@ -197,7 +201,9 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProvider
                          YollowButton(0.25, 'Log In', (){
                            Navigator.pushReplacementNamed(context, "supplierhome");
                          }),
-                         YollowButton(0.35, 'Sign Up', (){}),
+                         YollowButton(0.35, 'Sign Up', (){
+                           Navigator.of(context).pushNamed("signup");
+                         }),
                        ],
                      ),
                    ),
@@ -223,9 +229,11 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProvider
                       children: [
 
                         YollowButton(0.25, 'Log In', (){
-                          Navigator.pushReplacementNamed(context, "customarhome");
+                          Navigator.pushReplacementNamed(context, "customar_signIn");
                         }),
-                        YollowButton(0.35, 'Sign Up', (){}),
+                        YollowButton(0.35, 'Sign Up', (){
+                          Navigator.of(context).pushNamed("signup");
+                        }),
                         animatedimage(animated_controller: animated_controller),
                       ],
                     ),
@@ -247,7 +255,22 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProvider
                         image: AssetImage('assets/images/facebook.jpg'),
                       ), ),
 
-                      googlefacebook("Mail", (){}, Icon(Icons.person
+                      processing == true ? CircularProgressIndicator() :  googlefacebook("Guest", () async {
+
+                        setState(() {
+
+                          processing = true;
+
+                        });
+                        try {
+                          await FirebaseAuth.instance.signInAnonymously();
+                        }catch(e) {
+                          throw e;
+                        }
+
+                        Navigator.pushReplacementNamed(context, "customarhome");
+
+                      }, Icon(Icons.person
                       ), )
 
                     ],

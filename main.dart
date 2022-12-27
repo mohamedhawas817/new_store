@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import './screens/category.dart';
 import './screens/home.dart';
@@ -12,8 +13,13 @@ import './screens/dashboard.dart';
 import './screens/supplier_home.dart';
 import './screens/customar_home.dart';
 import './screens/signup.dart';
+import './screens/signin.dart';
+import 'package:firebase_core/firebase_core.dart';
 
-void main() {
+
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -32,11 +38,14 @@ class MyApp extends StatelessWidget {
         "Store": (context) => Store(),
         "dashboard": (context) => Dashboard(),
         "supplierhome": (context) => SupplierHome(),
-        "customarhome": (context) => HomePage()
+        "customarhome": (context) => HomePage(),
+        "welcome_screen" : (context) => WelcomeSCreen(),
+        "customar_signup": (context) => Signup(),
+        "customar_signIn": (context) => SignIn()
 
 
       },
-      home: Signup(),
+      home:  WelcomeSCreen(),
     );
   }
 }

@@ -1,8 +1,11 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../widget/authen.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
 
 
 
@@ -20,14 +23,69 @@ class _LoginState extends State<Signup> {
     'email': '',
     'password' : ''
   };
+  late String profileImage;
   File? file;
   final _formkey = GlobalKey<FormState>();
   final _scafKey  =   GlobalKey<ScaffoldMessengerState>();
+  bool processing = false;
+  void submit() async {
+    setState(() {
+      processing = true;
+    });
+    if(_formkey.currentState!.validate()) {
+      if(file != null) {
+        print("image picked");
+        print(_authData["email"]);
+        print(_authData["password"]);
+        _formkey.currentState!.save();
+        try {
+          await FirebaseAuth.instance.createUserWithEmailAndPassword(email: _authData["email"]!, password: _authData["password"]!);
+          String image_name = _authData['email']!;
+          firebase_storage.Reference ref = firebase_storage.FirebaseStorage.instance.ref('cust-images/$image_name.jpg');
+          await ref.putFile(File(file!.path));
+          profileImage =  await ref.getDownloadURL();
+          CollectionReference customars = FirebaseFirestore.instance.collection('customars');
+          try {
+            await customars.doc(FirebaseAuth.instance.currentUser!.uid).set({
+              'name': _authData['username'],
+              'email': _authData['email'],
+              'profile_image' : profileImage,
+              'phone': '',
+              'address': '',
+              'cid': FirebaseAuth.instance.currentUser!.uid
+            });
+          }catch(e) {
+            print(e);
+          }
 
-  void submit() {
-    if(!_formkey.currentState!.validate()) {
-      return;
+
+          Navigator.of(context).pushReplacementNamed("customarhome");
+
+        } catch(e) {
+          print(e);
+          setState(() {
+            processing = false;
+          });
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(e.toString())));
+        }
+        _formkey.currentState!.reset();
+        setState(() {
+          file = null;
+        });
+      }else {
+        setState(() {
+          processing = false;
+        });
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("please pick a image first")));
+      }
+    }else {
+      setState(() {
+        processing = false;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Please fill al fields first")));
+
     }
+
     _formkey.currentState!.save();
     ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
@@ -45,7 +103,7 @@ class _LoginState extends State<Signup> {
     });
   }
 
-  Future pickimagefromcameria() async {
+    Future pickimagefromcameria() async {
     final ImagePicker _image = ImagePicker();
     final XFile? pickedImage = await _image.pickImage(source: ImageSource.camera) as XFile?;
     setState(() {
@@ -88,7 +146,7 @@ class _LoginState extends State<Signup> {
                               backgroundColor: file != null ? Colors.white:  Colors.purpleAccent,
 
                               radius: 60,
-                              
+
                             ),
 
                           SizedBox(width: 80,),
@@ -161,10 +219,12 @@ class _LoginState extends State<Signup> {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 Text("already have an account ?"),
-                TextButton(onPressed: (){}, child: Text("Log In"))
+                TextButton(onPressed: (){
+                  Navigator.pushNamed(context, "customar_signIn");
+                }, child: Text("Log In"))
               ],
             ),
-            TextButton(
+            processing == true ? CircularProgressIndicator() : TextButton(
                 onPressed: submit,
                 child: Container(
                   width: double.infinity,
