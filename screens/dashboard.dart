@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import '../dashboard_componets/edit_bussins.dart';
 import '../dashboard_componets/manage_products.dart';
@@ -50,7 +51,17 @@ class Dashboard extends StatelessWidget {
         backgroundColor: Colors.white,
         title: Text("Dashboard", style: TextStyle(color: Colors.black),),
         actions: [
-          IconButton(onPressed: (){}, icon: Icon(Icons.logout, color: Colors.black,))
+          IconButton(onPressed: () => showDialog(context: context, builder: (BuildContext context) {
+            return AlertDialog(title: Text('log out ? ليه ؟'),
+              actions: [
+                TextButton(onPressed: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Navigator.pushNamed(context, "welcome_screen");
+                }, child: Text("yes", style: TextStyle(color: Colors.red),)),
+                TextButton(onPressed: () => Navigator.of(context).pop(), child: Text("No", style: TextStyle(color: Colors.blueGrey),))
+              ],content: Text("Are you sure you want to log out"), );
+          })
+              , icon: Icon(Icons.logout, color: Colors.black,))
         ],
       ),
       body: GridView.count(

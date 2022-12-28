@@ -13,6 +13,9 @@ import './screens/dashboard.dart';
 import './screens/supplier_home.dart';
 import './screens/customar_home.dart';
 import './screens/signup.dart';
+import './screens/subbSignup.dart';
+import './screens/subsignin.dart';
+
 import './screens/signin.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -41,7 +44,9 @@ class MyApp extends StatelessWidget {
         "customarhome": (context) => HomePage(),
         "welcome_screen" : (context) => WelcomeSCreen(),
         "customar_signup": (context) => Signup(),
-        "customar_signIn": (context) => SignIn()
+        "customar_signIn": (context) => SignIn(),
+        "supp_Signup" : (context) => SubbliSignup(),
+        "supp_login" : (context) => SubSignIn()
 
 
       },

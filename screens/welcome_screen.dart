@@ -1,5 +1,6 @@
 import 'dart:math';
 import 'package:animated_text_kit/animated_text_kit.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 
@@ -199,10 +200,10 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProvider
                        children: [
                          animatedimage(animated_controller: animated_controller),
                          YollowButton(0.25, 'Log In', (){
-                           Navigator.pushReplacementNamed(context, "supplierhome");
+                           Navigator.pushReplacementNamed(context, "supp_login");
                          }),
                          YollowButton(0.35, 'Sign Up', (){
-                           Navigator.of(context).pushNamed("signup");
+                           Navigator.of(context).pushNamed("supp_Signup");
                          }),
                        ],
                      ),
@@ -264,6 +265,15 @@ class _WelcomeSCreenState extends State<WelcomeSCreen> with SingleTickerProvider
                         });
                         try {
                           await FirebaseAuth.instance.signInAnonymously();
+                          FirebaseFirestore.instance.collection('customars').doc(FirebaseAuth.instance.currentUser!.uid).set({
+                            'store_name': '',
+                            'email': '',
+                            'store_logo' : '',
+                            'phone': '',
+                            'address': '',
+                            'cid': FirebaseAuth.instance.currentUser!.uid,
+                            'cover_image': ''
+                          });
                         }catch(e) {
                           throw e;
                         }
