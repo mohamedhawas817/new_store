@@ -6,7 +6,7 @@ import './shop.dart';
 import './shop_cart.dart';
 import './stores.dart';
 import './dashboard.dart';
-
+import './upload_product.dart';
 
 class SupplierHome extends StatefulWidget {
 
@@ -25,7 +25,7 @@ class _SupplierHomeState extends State<SupplierHome> {
     {'page': Category(), 'title': "Category"},
     {'page': Store(), 'title': "Store"},
     {'page': Dashboard(), 'title': "dashboard"},
-    {'page': Profile(), 'title': "profile"},
+    {'page': UploadProduct(), 'title': "upload"},
   ];
 
   void _selectPage(int index) {

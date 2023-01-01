@@ -61,7 +61,7 @@ class _ProfileState extends State<Profile> {
                               padding: const EdgeInsets.only(top: 25, left: 30),
                               child: Row(
                                 children: [
-                                  data['profile_omage'] != null ?  CircleAvatar(
+                                  data['profile_omage'] == null ?  CircleAvatar(
                                     radius: 50,
                                     backgroundImage: NetworkImage(data['profile_image']),
                                   ) : CircleAvatar(
@@ -129,7 +129,7 @@ class _ProfileState extends State<Profile> {
                                     child: SizedBox(
                                       height: 40,
                                       width: MediaQuery.of(context).size.width * 0.2,
-                                      child: Center(child: Text('Orders', style: TextStyle(color: Colors.black, fontSize: 24),)),
+                                      child: Center(child: Text('Orders', style: TextStyle(color: Colors.black, fontSize: 18),)),
                                     ),
                                     onPressed:()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Customar_order() )),
                                   ),
@@ -147,7 +147,7 @@ class _ProfileState extends State<Profile> {
                                     child: SizedBox(
                                       height: 40,
                                       width: MediaQuery.of(context).size.width * 0.2,
-                                      child: Center(child: Text('WishList', style: TextStyle(color: Colors.yellow, fontSize: 24),)),
+                                      child: Center(child: Text('WishList', style: TextStyle(color: Colors.yellow, fontSize: 18),)),
                                     ),
                                     onPressed: ()=> Navigator.push(context, MaterialPageRoute(builder: (context)=> Wishlist() )),
                                   ),
