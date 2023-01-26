@@ -65,6 +65,7 @@ class Dashboard extends StatelessWidget {
         ],
       ),
       body: GridView.count(
+
         mainAxisSpacing: 50,
           crossAxisSpacing: 50,
           crossAxisCount: 2, children: List.generate(6, (index) {

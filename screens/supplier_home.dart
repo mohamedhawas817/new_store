@@ -32,7 +32,6 @@ class _SupplierHomeState extends State<SupplierHome> {
     setState(() {
       _selectPageIndex = index;
     });
-    print(_pages[3]['page'].runtimeType);
 
   }
 
